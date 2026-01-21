@@ -27,7 +27,6 @@ public class Dark_Knight {
     }
 
     public static Task addDeadline(String description) {
-        System.out.println(description);
         String[] parts = description.split(" /by ");
         String ddl= parts[1];
         Deadline deadline = new Deadline(parts[0], ddl);

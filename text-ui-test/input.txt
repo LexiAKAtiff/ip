@@ -1,0 +1,6 @@
+deadline essay /by friday
+todo read book
+list
+mark 2
+event meeting /from Mon 2pm /to 4pm
+bye
