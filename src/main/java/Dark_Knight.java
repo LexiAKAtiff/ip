@@ -20,24 +20,36 @@ public class Dark_Knight {
         printLine();
     }
 
-    public static Task addTodo(String description) {
+    public static Task addTodo(String description) throws DarkKnightException{
+        if (description.trim().isEmpty()) {
+            throw new DarkKnightException("Wrong format for todo!");
+        }
         Todo todo = new Todo(description);
         tasks.add(todo);
         return todo;
     }
 
-    public static Task addDeadline(String description) {
+    public static Task addDeadline(String description) throws DarkKnightException{
         String[] parts = description.split(" /by ");
+        if (description.trim().isEmpty() || parts.length != 2 || parts[1].trim().isEmpty()) {
+            throw new DarkKnightException("Wrong format for deadline!");
+        }
         String ddl= parts[1];
         Deadline deadline = new Deadline(parts[0], ddl);
         tasks.add(deadline);
         return deadline;
     }
 
-    public static Task addEvent(String description) {
+    public static Task addEvent(String description) throws DarkKnightException{
         String[] parts = description.split(" /from ");
+        if (description.trim().isEmpty() || parts.length != 2 || parts[1].trim().isEmpty()) {
+            throw new DarkKnightException("Wrong format for event!");
+        }
         String taskName = parts[0];
         String[] otherParts = parts[1].split(" /to ");
+        if (otherParts.length < 2 || otherParts[1].trim().isEmpty()) {
+            throw new DarkKnightException("Wrong format for event!");
+        }
         String from = otherParts[0];
         String to = otherParts[1];
 
@@ -55,40 +67,70 @@ public class Dark_Knight {
     }
 
 
-    public static void readCommand(String taskDetail) {
+    public static void readCommand(String taskDetail) throws DarkKnightException {
         String[] parts = taskDetail.split(" ");
         String command = parts[0];
         if (command.equals("list")) {
+            if (tasks.isEmpty()) {
+                throw new DarkKnightException("There is nothing is your list!");
+            }
             printList();
         } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
             Task task;
             if (command.equals("todo")) {
-                task = addTodo(taskDetail.substring(5));
+                try {
+                    task = addTodo(taskDetail.substring(5));
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new DarkKnightException("Wrong format for todo!");
+                }
             } else if (command.equals("deadline")) {
-                task = addDeadline(taskDetail.substring(9));
+                try {
+                    task = addDeadline(taskDetail.substring(9));
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new DarkKnightException("Wrong format for deadline!");
+                }
             } else {
-                task = addEvent(taskDetail.substring(6));
+                try {
+                    task = addEvent(taskDetail.substring(6));
+                } catch (StringIndexOutOfBoundsException e) {
+                    throw new DarkKnightException("Wrong format for event!");
+                }
+
             }
             addTaskPrint(task);
         } else if (command.equals("mark")){
-            int index = Integer.parseInt(parts[1])-1;
-            Task task = tasks.get(index);
-            task.mark();
-            printLine();
-            System.out.println("Nice! I've marked this task as done");
-            System.out.println(task);
-            printLine();
+            if (parts.length < 2) {
+                throw new DarkKnightException("I don't know which one to mark.");
+            }
+            try {
+                int index = Integer.parseInt(parts[1])-1;
+                Task task = tasks.get(index);
+                task.mark();
+                printLine();
+                System.out.println("Nice! I've marked this task as done");
+                System.out.println(task);
+                printLine();
+            } catch (NumberFormatException e) {
+                throw new DarkKnightException(parts[1] + " is not a valid number.");
+            }
         } else if (command.equals("unmark")) {
-            int index = Integer.parseInt(parts[1])-1;
-            Task task = tasks.get(index);
-            task.mark();
-            printLine();
-            System.out.println("OK, I've marked this task as not done yet");
-            System.out.println(task);
-            printLine();
+            if (parts.length < 2) {
+                throw new DarkKnightException("I don't know which one to unmark.");
+            }
+            try {
+                int index = Integer.parseInt(parts[1])-1;
+                Task task = tasks.get(index);
+                task.unmark();
+                printLine();
+                System.out.println("OK, I've marked this task as not done yet");
+                System.out.println(task);
+                printLine();
+            } catch(NumberFormatException e) {
+                throw new DarkKnightException(parts[1] + " is not a valid number.");
+            }
         }
         else {
-            System.out.println("Wrong command type!");
+            throw new DarkKnightException("I can't perform this task, it's beyond my capability!");
         }
     }
 
@@ -100,18 +142,22 @@ public class Dark_Knight {
         System.out.println("What can I do for you?");
         printLine();
 
-        int counter = 0;
-
         String content = scanner.nextLine();
 
         while (!content.equals("bye") ) {
-            readCommand(content);
+            try {
+                readCommand(content);
+            } catch (DarkKnightException e) {
+                printLine();
+                System.out.println("Uh oh! " + e.getMessage());
+                printLine();
+            }
             content = scanner.nextLine();
         }
 
-        System.out.println("_".repeat(50));
+        printLine();
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("_".repeat(50));
+        printLine();
 
     }
 }
