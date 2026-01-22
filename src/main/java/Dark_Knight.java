@@ -95,7 +95,6 @@ public class Dark_Knight {
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DarkKnightException("Wrong format for event!");
                 }
-
             }
             addTaskPrint(task);
         } else if (command.equals("mark")){
@@ -104,10 +103,13 @@ public class Dark_Knight {
             }
             try {
                 int index = Integer.parseInt(parts[1])-1;
+                if (index >= tasks.size()) {
+                    throw new DarkKnightException("I can't find this task.");
+                }
                 Task task = tasks.get(index);
                 task.mark();
                 printLine();
-                System.out.println("Nice! I've marked this task as done");
+                System.out.println("Nice! I've marked this task as done: ");
                 System.out.println(task);
                 printLine();
             } catch (NumberFormatException e) {
@@ -119,17 +121,38 @@ public class Dark_Knight {
             }
             try {
                 int index = Integer.parseInt(parts[1])-1;
+                if (index >= tasks.size()) {
+                    throw new DarkKnightException("I can't find this task.");
+                }
                 Task task = tasks.get(index);
                 task.unmark();
                 printLine();
-                System.out.println("OK, I've marked this task as not done yet");
+                System.out.println("OK, I've marked this task as not done yet: ");
                 System.out.println(task);
                 printLine();
             } catch(NumberFormatException e) {
                 throw new DarkKnightException(parts[1] + " is not a valid number.");
             }
-        }
-        else {
+        } else if (command.equals("delete")){
+            if (parts.length < 2) {
+                throw new DarkKnightException("I don't know which one to delete.");
+            }
+            try {
+                int index = Integer.parseInt(parts[1])-1;
+                if (index >= tasks.size()) {
+                    throw new DarkKnightException("I can't find this task.");
+                }
+                Task task = tasks.get(index);
+                tasks.remove(index);
+                printLine();
+                System.out.println("Noted. I've removed this task: ");
+                System.out.println(task);
+                System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+                printLine();
+            } catch(NumberFormatException e) {
+                throw new DarkKnightException(parts[1] + " is not a valid number.");
+            }
+        } else {
             throw new DarkKnightException("I can't perform this task, it's beyond my capability!");
         }
     }
