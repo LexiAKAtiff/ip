@@ -1,0 +1,3 @@
+[T][ ] greet everyone
+[D][ ] devoir (by: tmr)
+[E][ ] exam (from: 2pm to: 4pm)
