@@ -158,7 +158,7 @@ public class Dark_Knight {
     }
 
     public static void main(String[] args) {
-
+        //Welcome!
         printLine();
         System.out.println("Hello! I'm Dark Knight");
         System.out.println("I'm here to guard you through the dark nights.");
@@ -178,9 +178,9 @@ public class Dark_Knight {
             content = scanner.nextLine();
         }
 
+        //Say goodbye!
         printLine();
         System.out.println("Bye. Hope to see you again soon!");
         printLine();
-
     }
 }
