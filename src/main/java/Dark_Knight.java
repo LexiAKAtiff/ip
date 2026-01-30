@@ -45,7 +45,6 @@ public class Dark_Knight {
         if (description.trim().isEmpty() || parts.length != 2 || parts[1].trim().isEmpty()) {
             throw new DarkKnightException("Wrong format for event!");
         }
-        String taskName = parts[0];
         String[] otherParts = parts[1].split(" /to ");
         if (otherParts.length < 2 || otherParts[1].trim().isEmpty()) {
             throw new DarkKnightException("Wrong format for event!");
