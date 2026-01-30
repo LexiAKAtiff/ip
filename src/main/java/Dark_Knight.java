@@ -1,6 +1,14 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+
 public class Dark_Knight {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Task> tasks = new ArrayList<>();
@@ -153,6 +161,30 @@ public class Dark_Knight {
             }
         } else {
             throw new DarkKnightException("I can't perform this task, it's beyond my capability!");
+        }
+        updateFile();
+    }
+
+    public static void updateFile() {
+        try {
+            // 使用相对路径 "./data/dark_knight.txt"，OS独立
+            Path dirPath = Paths.get("data");
+            Path filePath = Paths.get("data", "dark_knight.txt");
+
+            // 如果文件夹不存在，创建它
+            if (!Files.exists(dirPath)) {
+                Files.createDirectories(dirPath);
+            }
+
+            // 写入文件
+            try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+                for (Task task : tasks) {
+                    writer.write(task.toString());
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
 
