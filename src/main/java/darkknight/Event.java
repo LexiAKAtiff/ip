@@ -1,37 +1,40 @@
+package darkknight;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
-public class Deadline extends Task{
-    LocalDate by;
+public class Event extends Task {
+    LocalDate from;
+    LocalDate to;
 
-    ////for input format
+    // to parse input format
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    //for output format
+    // output format
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
 
-    public Deadline(String description, String by) throws DarkKnightException{
+    public Event(String description, String from, String to) throws DarkKnightException {
         super(description);
         try {
-            this.by = LocalDate.parse(by, INPUT_FORMATTER);
+            this.from = LocalDate.parse(from, INPUT_FORMATTER);
+            this.to = LocalDate.parse(to, INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
             throw new DarkKnightException("Invalid date format! Please use yyyy-MM-dd format (e.g., 2019-12-02)");
         }
     }
 
-    public LocalDate getTime() {
-        return by;
+    public String getFromString() {
+        return this.from.format(OUTPUT_FORMATTER);
     }
 
-
-    public String getByString() {
-        return this.by.format(OUTPUT_FORMATTER);
+    public String getToString() {
+        return this.to.format(OUTPUT_FORMATTER);
     }
 
     @Override
     public String toString() {
-        return ("[D]" + super.toString() + " (by: " + getByString() + ")");
+        return ("[E]" + super.toString() + " (from: " + getFromString() + " to: " + getToString() + ")");
     }
 
 }

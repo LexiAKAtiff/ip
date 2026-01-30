@@ -1,8 +1,9 @@
+package darkknight;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.io.BufferedWriter;
-import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.nio.file.Path;
@@ -28,7 +29,7 @@ public class Dark_Knight {
         printLine();
     }
 
-    public static Task addTodo(String description) throws DarkKnightException{
+    public static Task addTodo(String description) throws DarkKnightException {
         if (description.trim().isEmpty()) {
             throw new DarkKnightException("Wrong format for todo!");
         }
@@ -37,7 +38,7 @@ public class Dark_Knight {
         return todo;
     }
 
-    public static Task addDeadline(String description) throws DarkKnightException{
+    public static Task addDeadline(String description) throws DarkKnightException {
         String[] parts = description.split(" /by ");
         if (description.trim().isEmpty() || parts.length != 2 || parts[1].trim().isEmpty()) {
             throw new DarkKnightException("Wrong format for deadline!");
@@ -48,7 +49,7 @@ public class Dark_Knight {
         return deadline;
     }
 
-    public static Task addEvent(String description) throws DarkKnightException{
+    public static Task addEvent(String description) throws DarkKnightException {
         String[] parts = description.split(" /from ");
         if (description.trim().isEmpty() || parts.length != 2 || parts[1].trim().isEmpty()) {
             throw new DarkKnightException("Wrong format for event!");

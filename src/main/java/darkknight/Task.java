@@ -1,5 +1,7 @@
-//this Task code is partly from iP document about extension: A-Classes
-public class Task {
+package darkknight;
+
+//this darkknight.Task code is partly from iP document about extension: A-Classes
+public abstract class Task {
     boolean status;
     String name;
 
