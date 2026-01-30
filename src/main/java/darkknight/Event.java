@@ -24,6 +24,12 @@ public class Event extends Task {
         }
     }
 
+    public Event(String description, LocalDate from, LocalDate to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
     public String getFromString() {
         return this.from.format(OUTPUT_FORMATTER);
     }
