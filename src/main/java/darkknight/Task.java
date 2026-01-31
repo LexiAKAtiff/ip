@@ -2,27 +2,32 @@ package darkknight;
 
 //this darkknight.Task code is partly from iP document about extension: A-Classes
 public abstract class Task {
-    boolean status;
-    String name;
+    private boolean isDone;
+    private final String name;
 
     public Task(String description) {
         this.name = description;
-        this.status = false;
+        this.isDone = false;
     }
 
     public void mark() {
-        status = true;
+        isDone = true;
     }
+
     public void unmark() {
-        status = false;
+        isDone = false;
     }
 
     public String getIcon() {
-        return (status ? "X" : " ");
+        return (isDone ? "X" : " ");
     }
 
     public String getName() {
         return name;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     @Override
