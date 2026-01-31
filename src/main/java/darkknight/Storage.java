@@ -83,8 +83,7 @@ public class Storage {
      * Parses a task from file format string.
      * Format examples:
      * [T][ ] read book
-     * [D][X] essay (by: Feb 03 2026)
-     * [E][ ] meeting (from: Feb 01 2026 to: Feb 05 2026)
+     * [E][X] meeting (from: Feb 01 2026 to: Feb 05 2026)
      */
     public Task parseTaskFromFile(String line) throws DarkKnightException{
         if (line.trim().isEmpty()) {

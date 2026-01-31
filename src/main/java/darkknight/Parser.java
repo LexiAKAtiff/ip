@@ -3,6 +3,10 @@ package darkknight;
 import java.time.LocalDate;
 
 public class Parser {
+
+    /**
+     * Parses the user input and decides which method to call
+     */
     public void parseCommand(String fullCommand, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         String[] parts = fullCommand.split(" ", 2);

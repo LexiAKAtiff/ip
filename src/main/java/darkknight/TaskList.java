@@ -13,6 +13,7 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
     /**
      * Adds a task to the list
      */

@@ -14,6 +14,9 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Prints a horizontal line
+     */
     public void printLine() {
         System.out.println(LINE);
     }

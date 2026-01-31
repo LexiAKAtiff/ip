@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+/**
+ * Deadline task class
+ */
 public class Deadline extends Task {
     LocalDate by;
 
@@ -22,16 +25,25 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Used to construct deadline when read from file
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
+    /**
+     * Returns the deadline time
+     */
     public LocalDate getTime() {
         return by;
     }
 
 
+    /**
+     * Returns the deadline time in certain output format
+     */
     public String getByString() {
         return this.by.format(OUTPUT_FORMATTER);
     }

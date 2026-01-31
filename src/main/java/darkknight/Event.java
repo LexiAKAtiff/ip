@@ -24,16 +24,25 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Constructs event task for the read-from-file scenario
+     */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Returns event start time using certain output format
+     */
     public String getFromString() {
         return this.from.format(OUTPUT_FORMATTER);
     }
 
+    /**
+     * Returns event end time using certain output format
+     */
     public String getToString() {
         return this.to.format(OUTPUT_FORMATTER);
     }
