@@ -1,6 +1,7 @@
 package darkknight;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Parser {
 
@@ -33,6 +34,9 @@ public class Parser {
             break;
         case "delete":
             handleDelete(parts, tasks, ui, storage);
+            break;
+        case "find":
+            handleFind(parts, tasks, ui, storage);
             break;
         default:
             throw new DarkKnightException("I can't perform this task, it's beyond my capability!");
@@ -175,5 +179,29 @@ public class Parser {
             throw new DarkKnightException(parts[1] + " is not a valid number.");
         }
     }
+    /**
+     * Handle "find" command
+     */
+    public TaskList handleFind(String[] parts, TaskList tasks, Ui ui, Storage storage)
+            throws DarkKnightException{
+        TaskList relevantTasks = new TaskList();
+        try {
+            String keyWord = parts[1].trim();
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.getTask(i);
+                if (task.getName().contains(keyWord)) {
+                    relevantTasks.addTask(task);
+                }
+            }
 
+            if (relevantTasks.isEmpty()) {
+               throw new DarkKnightException("There isn't a task matching your keyword!");
+            }
+
+            ui.showMatchingList(relevantTasks);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DarkKnightException("Missing keyword for find command!");
+        }
+        return relevantTasks;
+    }
 }

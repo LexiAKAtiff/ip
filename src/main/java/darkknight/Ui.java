@@ -110,4 +110,17 @@ public class Ui {
         System.out.println(task);
         printLine();
     }
+
+    /**
+     * Shows the list of tasks matching the keyword
+     */
+    public void showMatchingList(TaskList tasks) throws DarkKnightException{
+        printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            int index = i + 1;
+            System.out.println(index + "." + tasks.getTask(i).toString());
+        }
+        printLine();
+    }
 }
