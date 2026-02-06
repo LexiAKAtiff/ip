@@ -1,8 +1,8 @@
 package darkknight;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
+/**
+ * Manages the process of understanding user input
+ */
 public class Parser {
 
     /**
@@ -15,7 +15,7 @@ public class Parser {
 
         switch (command) {
         case "list":
-            handleList(tasks,ui);
+            handleList(tasks, ui);
             break;
         case "todo":
             handleTodo(parts, tasks, ui, storage);
@@ -58,7 +58,7 @@ public class Parser {
      * Handles the "todo" command
      */
     private void handleTodo(String[] parts, TaskList tasks, Ui ui, Storage storage)
-            throws DarkKnightException{
+            throws DarkKnightException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new DarkKnightException("Missing description for the todo!");
         }
@@ -183,7 +183,7 @@ public class Parser {
      * Handle "find" command
      */
     public TaskList handleFind(String[] parts, TaskList tasks, Ui ui, Storage storage)
-            throws DarkKnightException{
+            throws DarkKnightException {
         TaskList relevantTasks = new TaskList();
         try {
             String keyWord = parts[1].trim();

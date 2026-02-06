@@ -9,14 +9,20 @@ import java.util.Locale;
  * Deadline task class
  */
 public class Deadline extends Task {
-    LocalDate by;
 
     //for input format
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     //for output format
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy",
+            Locale.ENGLISH);
 
+    private LocalDate by;
+
+    /**
+     * Deadline constructor
+     * @param by is the deadline of this task
+     */
     public Deadline(String description, String by) throws DarkKnightException {
         super(description);
         try {

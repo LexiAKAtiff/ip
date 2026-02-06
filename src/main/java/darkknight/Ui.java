@@ -1,14 +1,11 @@
 package darkknight;
 
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
+import java.util.Scanner;
 
 public class Ui {
-    private final Scanner scanner;
     private static final String LINE = "_".repeat(50);
+    private final Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -114,7 +111,7 @@ public class Ui {
     /**
      * Shows the list of tasks matching the keyword
      */
-    public void showMatchingList(TaskList tasks) throws DarkKnightException{
+    public void showMatchingList(TaskList tasks) throws DarkKnightException {
         printLine();
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {

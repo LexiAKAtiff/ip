@@ -1,15 +1,21 @@
 package darkknight;
 
 import java.util.ArrayList;
-import java.time.LocalDate;
 
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new tasklist
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a tasklist with existing tasks in the txt file
+     * @param tasks are read from the txt file
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -24,7 +30,7 @@ public class TaskList {
     /**
      * Deletes a task in the list
      */
-    public Task deleteTask(int index) throws DarkKnightException{
+    public Task deleteTask(int index) throws DarkKnightException {
         if (index < 0 || index >= tasks.size()) {
             throw new DarkKnightException("I can't find this task!");
         }

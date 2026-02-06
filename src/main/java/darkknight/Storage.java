@@ -1,13 +1,11 @@
 package darkknight;
 
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
-
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -85,7 +83,7 @@ public class Storage {
      * [T][ ] read book
      * [E][X] meeting (from: Feb 01 2026 to: Feb 05 2026)
      */
-    public Task parseTaskFromFile(String line) throws DarkKnightException{
+    public Task parseTaskFromFile(String line) throws DarkKnightException {
         if (line.trim().isEmpty()) {
             throw new DarkKnightException("Empty line");
         }

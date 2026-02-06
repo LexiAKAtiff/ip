@@ -6,13 +6,14 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 public class Event extends Task {
-    LocalDate from;
-    LocalDate to;
-
     // to parse input format
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     // output format
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy",
+            Locale.ENGLISH);
+
+    private LocalDate from;
+    private LocalDate to;
 
     public Event(String description, String from, String to) throws DarkKnightException {
         super(description);

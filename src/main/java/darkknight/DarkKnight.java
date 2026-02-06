@@ -4,10 +4,10 @@ package darkknight;
  * Main class for the application
  */
 public class DarkKnight {
-    static Storage storage = new Storage("data/dark_knight.txt");
-    static Ui ui;
-    static TaskList tasks;
-    static Parser parser = new Parser();
+    private static Storage storage = new Storage("data/dark_knight.txt");
+    private static Ui ui;
+    private static TaskList tasks;
+    private static Parser parser = new Parser();
 
     /**
      * Constructs the chatbot
@@ -17,7 +17,7 @@ public class DarkKnight {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch(DarkKnightException e) {
+        } catch (DarkKnightException e) {
             tasks = new TaskList();
         }
     }
