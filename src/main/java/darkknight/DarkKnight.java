@@ -3,7 +3,7 @@ package darkknight;
 /**
  * Main class for the application
  */
-public class Dark_Knight {
+public class DarkKnight {
     static Storage storage = new Storage("data/dark_knight.txt");
     static Ui ui;
     static TaskList tasks;
@@ -12,7 +12,7 @@ public class Dark_Knight {
     /**
      * Constructs the chatbot
      */
-    public Dark_Knight(String filePath) {
+    public DarkKnight(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -42,6 +42,6 @@ public class Dark_Knight {
     }
 
     public static void main(String[] args) {
-        new Dark_Knight("data/dark_knight.txt").run();
+        new DarkKnight("data/dark_knight.txt").run();
     }
 }

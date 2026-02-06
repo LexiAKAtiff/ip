@@ -1,4 +1,4 @@
-# darkknight.Dark_Knight User Guide
+# darkknight.DarkKnight User Guide
 
 // Update the title above to match the actual product name
 
