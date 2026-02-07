@@ -8,56 +8,50 @@ public class Parser {
     /**
      * Parses the user input and decides which method to call
      */
-    public void parseCommand(String fullCommand, TaskList tasks, Ui ui, Storage storage)
+    public String parseCommand(String fullCommand, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];
 
         switch (command) {
         case "list":
-            handleList(tasks, ui);
-            break;
+            return handleList(tasks, ui);
         case "todo":
-            handleTodo(parts, tasks, ui, storage);
-            break;
+            return handleTodo(parts, tasks, ui, storage);
         case "deadline":
-            handleDeadline(parts, tasks, ui, storage);
-            break;
+            return handleDeadline(parts, tasks, ui, storage);
         case "event":
-            handleEvent(parts, tasks, ui, storage);
-            break;
+            return handleEvent(parts, tasks, ui, storage);
         case "mark":
-            handleMark(parts, tasks, ui, storage);
-            break;
+            return handleMark(parts, tasks, ui, storage);
         case "unmark":
-            handleUnmark(parts, tasks, ui, storage);
-            break;
+            return handleUnmark(parts, tasks, ui, storage);
         case "delete":
-            handleDelete(parts, tasks, ui, storage);
-            break;
+            return handleDelete(parts, tasks, ui, storage);
         case "find":
-            handleFind(parts, tasks, ui, storage);
-            break;
+            return handleFind(parts, tasks, ui, storage);
+        case "bye":
+            return ui.showGoodbye();
         default:
             throw new DarkKnightException("I can't perform this task, it's beyond my capability!");
         }
     }
 
     /**
-     * Checks if list is empty when it's "list" command，
+     * Checks if list is empty when it's "list" command,
      * if not then prints
      */
-    private void handleList(TaskList tasks, Ui ui) throws DarkKnightException {
+    private String handleList(TaskList tasks, Ui ui) throws DarkKnightException {
         if (tasks.isEmpty()) {
             throw new DarkKnightException("There is nothing in your list!");
         }
-        ui.printList(tasks.getAllTasks());
+        return ui.printList(tasks.getAllTasks());
     }
 
     /**
      * Handles the "todo" command
      */
-    private void handleTodo(String[] parts, TaskList tasks, Ui ui, Storage storage)
+    private String handleTodo(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new DarkKnightException("Missing description for the todo!");
@@ -65,14 +59,14 @@ public class Parser {
         String description = parts[1];
         Todo todo = new Todo(description);
         tasks.addTask(todo);
-        ui.showTaskAdded(todo, tasks.size());
         storage.save(tasks.getAllTasks());
+        return ui.showTaskAdded(todo, tasks.size());
     }
 
     /**
      * Handles "deadline" command
      */
-    private void handleDeadline(String[] parts, TaskList tasks, Ui ui, Storage storage)
+    private String handleDeadline(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         if (parts.length < 2) {
             throw new DarkKnightException("Missing description and time for the deadline!");
@@ -88,14 +82,14 @@ public class Parser {
 
         Deadline deadline = new Deadline(description, by);
         tasks.addTask(deadline);
-        ui.showTaskAdded(deadline, tasks.size());
         storage.save(tasks.getAllTasks());
+        return ui.showTaskAdded(deadline, tasks.size());
     }
 
     /**
      * Handles the "event" command
      */
-    private void handleEvent(String[] parts, TaskList tasks, Ui ui, Storage storage)
+    private String handleEvent(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         if (parts.length < 2) {
             throw new DarkKnightException("Missing description and time for the event!");
@@ -120,14 +114,14 @@ public class Parser {
 
         Event event = new Event(description, from, to);
         tasks.addTask(event);
-        ui.showTaskAdded(event, tasks.size());
         storage.save(tasks.getAllTasks());
+        return ui.showTaskAdded(event, tasks.size());
     }
 
     /**
      * Handles the mark command
      */
-    private void handleMark(String[] parts, TaskList tasks, Ui ui, Storage storage)
+    private String handleMark(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         if (parts.length < 2) {
             throw new DarkKnightException("I don't know which one to mark.");
@@ -136,8 +130,8 @@ public class Parser {
             int index = Integer.parseInt(parts[1]) - 1;
             tasks.markTask(index);
             Task task = tasks.getTask(index);
-            ui.showTaskMarked(task);
             storage.save(tasks.getAllTasks());
+            return ui.showTaskMarked(task);
         } catch (NumberFormatException e) {
             throw new DarkKnightException(parts[1] + " is not a valid number.");
         }
@@ -146,7 +140,7 @@ public class Parser {
     /**
      * Handles the unmark command.
      */
-    private void handleUnmark(String[] parts, TaskList tasks, Ui ui, Storage storage)
+    private String handleUnmark(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         if (parts.length < 2) {
             throw new DarkKnightException("I don't know which one to unmark.");
@@ -155,8 +149,8 @@ public class Parser {
             int index = Integer.parseInt(parts[1]) - 1;
             tasks.unmarkTask(index);
             Task task = tasks.getTask(index);
-            ui.showTaskUnmarked(task);
             storage.save(tasks.getAllTasks());
+            return ui.showTaskUnmarked(task);
         } catch (NumberFormatException e) {
             throw new DarkKnightException(parts[1] + " is not a valid number.");
         }
@@ -165,7 +159,7 @@ public class Parser {
     /**
      * Handles the delete command
      */
-    private void handleDelete(String[] parts, TaskList tasks, Ui ui, Storage storage)
+    private String handleDelete(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         if (parts.length < 2) {
             throw new DarkKnightException("I don't know which one to delete.");
@@ -173,8 +167,8 @@ public class Parser {
         try {
             int index = Integer.parseInt(parts[1]) - 1;
             Task task = tasks.deleteTask(index);
-            ui.showTaskDeleted(task, tasks.size());
             storage.save(tasks.getAllTasks());
+            return ui.showTaskDeleted(task, tasks.size());
         } catch (NumberFormatException e) {
             throw new DarkKnightException(parts[1] + " is not a valid number.");
         }
@@ -182,7 +176,7 @@ public class Parser {
     /**
      * Handle "find" command
      */
-    public TaskList handleFind(String[] parts, TaskList tasks, Ui ui, Storage storage)
+    public String handleFind(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         TaskList relevantTasks = new TaskList();
         try {
@@ -198,10 +192,9 @@ public class Parser {
                throw new DarkKnightException("There isn't a task matching your keyword!");
             }
 
-            ui.showMatchingList(relevantTasks);
+            return ui.showMatchingList(relevantTasks);
         } catch (IndexOutOfBoundsException e) {
             throw new DarkKnightException("Missing keyword for find command!");
         }
-        return relevantTasks;
     }
 }

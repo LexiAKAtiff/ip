@@ -21,21 +21,19 @@ public class Ui {
     /**
      * Shows welcome message
      */
-    public void showWelcome() {
-        printLine();
-        System.out.println("Hello! I'm Dark Knight");
-        System.out.println("I'm here to guard you through the dark nights.");
-        System.out.println("What can I do for you?");
-        printLine();
+    public String showWelcome() {
+        return """
+                Hello! I'm Dark Knight
+                I'm here to guard you through the dark nights.
+                What can I do for you?
+                """;
     }
 
     /**
      * Shows goodbye message
      */
-    public void showGoodbye() {
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -48,76 +46,66 @@ public class Ui {
     /**
      * Shows an error message
      */
-    public void showError(String message) {
-        printLine();
-        System.out.println("Uh oh! " + message);
-        printLine();
+    public String showError(String message) {
+        return "Uh oh!" + message;
     }
 
     /**
      * Prints the task list
      */
-    public void printList(ArrayList<Task> tasks) {
+    public String printList(ArrayList<Task> tasks) {
         printLine();
-        System.out.println("Here are the tasks in your list: ");
+        String str = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d.%s\n", i + 1, tasks.get(i).toString());
+            int index = i + 1;
+            str = str + (index) + "." + tasks.get(i).toString() + "\n";
         }
-        printLine();
+        return str;
     }
 
     /**
      * Shows message when a task is added
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        printLine();
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("  " + task.toString());
-        System.out.printf("Now you have %d tasks in the list.\n", taskCount);
-        printLine();
+    public String showTaskAdded(Task task, int taskCount) {
+        return "Got it. I've added this task:\n"
+                + "  " + task.toString() + "\n"
+                + "Now you have " + taskCount + " tasks in the list.";
     }
 
     /**
      * Shows message when a task is deleted
      */
-    public void showTaskDeleted(Task task, int taskCount) {
-        printLine();
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", taskCount);
-        printLine();
+    public String showTaskDeleted(Task task, int taskCount) {
+        return "Noted. I've removed this task: \n"
+                + "  " + task.toString() + "\n"
+                + "Now you have " + taskCount + " tasks in the list.";
     }
 
     /**
      * Shows message when a task is marked as done
      */
-    public void showTaskMarked(Task task) {
-        printLine();
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println(task);
-        printLine();
+    public String showTaskMarked(Task task) {
+        return "Nice! I've marked this task as done: \n"
+                + task.toString();
     }
 
     /**
      * Shows message when a task is unmarked
      */
-    public void showTaskUnmarked(Task task) {
-        printLine();
-        System.out.println("OK, I've marked this task as not done yet: ");
-        System.out.println(task);
-        printLine();
+    public String showTaskUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet: \n"
+                + task.toString();
     }
 
     /**
      * Shows the list of tasks matching the keyword
      */
-    public void showMatchingList(TaskList tasks) throws DarkKnightException {
-        printLine();
-        System.out.println("Here are the matching tasks in your list:");
+    public String showMatchingList(TaskList tasks) throws DarkKnightException {
+        String str = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
-            System.out.println(index + "." + tasks.getTask(i).toString());
+            str = str + index + "." + tasks.getTask(i).toString() + "\n";
         }
-        printLine();
+        return str;
     }
 }

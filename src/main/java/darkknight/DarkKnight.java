@@ -22,26 +22,38 @@ public class DarkKnight {
         }
     }
 
+//    /**
+//     * Controls the whole workflow
+//     */
+//    public void run() {
+//        ui.showWelcome();
+//
+//        String content = ui.readCommand();
+//        while (!content.equals("bye")) {
+//            try {
+//                parser.parseCommand(content, tasks, ui, storage);
+//            } catch (DarkKnightException e) {
+//                ui.showError(e.getMessage());
+//            }
+//            content = ui.readCommand();
+//        }
+//
+//        ui.showGoodbye();
+//    }
+
+//    public static void main(String[] args) {
+//        new DarkKnight("data/dark_knight.txt").run();
+//    }
+
     /**
-     * Controls the whole workflow
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.showWelcome();
-
-        String content = ui.readCommand();
-        while (!content.equals("bye")) {
-            try {
-                parser.parseCommand(content, tasks, ui, storage);
-            } catch (DarkKnightException e) {
-                ui.showError(e.getMessage());
-            }
-            content = ui.readCommand();
+    public String getResponse(String input) {
+        try {
+            String str = parser.parseCommand(input, tasks, ui, storage);
+            return str;
+        } catch (DarkKnightException e) {
+            return ui.showError(e.getMessage());
         }
-
-        ui.showGoodbye();
-    }
-
-    public static void main(String[] args) {
-        new DarkKnight("data/dark_knight.txt").run();
     }
 }
