@@ -12,13 +12,6 @@ public class Ui {
     }
 
     /**
-     * Prints a horizontal line
-     */
-    public void printLine() {
-        System.out.println(LINE);
-    }
-
-    /**
      * Shows welcome message
      */
     public String showWelcome() {
@@ -54,7 +47,6 @@ public class Ui {
      * Prints the task list
      */
     public String printList(ArrayList<Task> tasks) {
-        printLine();
         String str = "Here are the tasks in your list: \n";
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
