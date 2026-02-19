@@ -50,6 +50,7 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 Task task = parseTaskFromFile(line);
+                tasks.add(task);
             }
         } catch (IOException e) {
             throw new DarkKnightException("Error loading tasks: " + e.getMessage());

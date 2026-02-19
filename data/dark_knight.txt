@@ -1,4 +1,2 @@
-[T][ ] something
-[E][X] dance (from: Feb 03 2023 to: Mar 03 2024)
-[T][ ] something
-[D][ ] read (by: Feb 14 2026)
+[T][X] Ski like Yiming Su
+[D][ ] read Dreams of the Red Chamber (by: Apr 10 2026)
