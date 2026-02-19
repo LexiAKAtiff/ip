@@ -36,6 +36,8 @@ dependencies {
 test {
     useJUnitPlatform()
 
+    enableAssertions = true
+
     testLogging {
         events "passed", "skipped", "failed"
 
@@ -50,9 +52,11 @@ test {
 shadowJar {
     archiveBaseName = "darkknight"
     archiveClassifier = null
+    archiveFileName = 'darkknight.jar'
 }
 
 run{
+    enableAssertions = true
     standardInput = System.in
 }
 
