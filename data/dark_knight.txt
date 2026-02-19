@@ -1,4 +1,3 @@
-[T][ ] something
-[E][X] dance (from: Feb 03 2023 to: Mar 03 2024)
+[T][X] something
 [T][ ] something
 [D][ ] read (by: Feb 14 2026)

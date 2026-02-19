@@ -44,7 +44,10 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new DarkKnightException("I can't find this task.");
         }
-        return tasks.get(index);
+
+        Task task = tasks.get(index);
+        assert task != null: "Accidentally got a null task!";
+        return task;
     }
 
     /**
