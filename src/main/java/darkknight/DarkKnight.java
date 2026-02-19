@@ -8,6 +8,7 @@ public class DarkKnight {
     private final Ui ui;
     private TaskList tasks;
     private final Parser parser;
+    private final Archive archive;
 
     /**
      * Constructs the chatbot
@@ -16,6 +17,7 @@ public class DarkKnight {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage(filePath);
+        archive = new Archive("data/archive.txt");
         try {
             tasks = new TaskList(storage.load());
         } catch (DarkKnightException e) {
@@ -51,7 +53,7 @@ public class DarkKnight {
      */
     public String getResponse(String input) {
         try {
-            String str = parser.parseCommand(input, tasks, ui, storage);
+            String str = parser.parseCommand(input, tasks, ui, storage, archive);
             return str;
         } catch (DarkKnightException e) {
             return ui.showError(e.getMessage());

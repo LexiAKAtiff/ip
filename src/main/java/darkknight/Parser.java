@@ -8,8 +8,8 @@ public class Parser {
     /**
      * Parses the user input and decides which method to call
      */
-    public String parseCommand(String fullCommand, TaskList tasks, Ui ui, Storage storage)
-            throws DarkKnightException {
+    public String parseCommand(String fullCommand, TaskList tasks, Ui ui,
+            Storage storage, Archive archive) throws DarkKnightException {
         String[] parts = fullCommand.split(" ", 2);
         String command = parts[0];
 
@@ -30,6 +30,12 @@ public class Parser {
             return handleDelete(parts, tasks, ui, storage);
         case "find":
             return handleFind(parts, tasks, ui, storage);
+        case "archive":
+            return handleArchive(parts, tasks, ui, storage, archive);
+        case "unarchive":
+            return handleUnarchive(parts, tasks, ui, storage, archive);
+        case "archivelist":
+            return handleArchiveList(parts, tasks, ui, storage, archive);
         case "bye":
             return ui.showGoodbye();
         default:
@@ -199,5 +205,61 @@ public class Parser {
 
         return ui.showMatchingList(relevantTasks);
 
+    }
+
+    /**
+     * Handles 'Archive' command
+     */
+    private String handleArchive(String[] parts, TaskList tasks, Ui ui, Storage storage, Archive archive)
+            throws DarkKnightException {
+        if (parts.length < 2) {
+            throw new DarkKnightException("I don't know which one to archive.");
+        }
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+            Task task = tasks.getTask(index);
+
+            // Adds the task into archive file
+            archive.addToArchive(task);
+
+            //Deletes the task from the current tasklist
+            tasks.deleteTask(index);
+
+            return ui.showTaskArchived(task);
+        } catch (NumberFormatException e) {
+            throw new DarkKnightException(parts[1] + " is not a valid number.");
+        }
+    }
+
+    /**
+     * Handles unarchive command
+     */
+    private String handleUnarchive(String[] parts, TaskList tasks, Ui ui, Storage storage, Archive archive)
+            throws DarkKnightException {
+        if (parts.length < 2) {
+            throw new DarkKnightException("I don't know which one to move out of archive.");
+        }
+        try {
+            int index = Integer.parseInt(parts[1]) - 1;
+
+            Task task = archive.getTask(index);
+            archive.unarchive(index);
+
+            return ui.showTaskUnarchived(task);
+        } catch (NumberFormatException e) {
+            throw new DarkKnightException(parts[1] + " is not a valid number.");
+        }
+    }
+
+    /**
+     * Handles archivelist command
+     */
+    private String handleArchiveList(String[] parts, TaskList tasks, Ui ui, Storage storage, Archive archive)
+            throws DarkKnightException {
+        TaskList archiveTasks =  archive.getTasklist();
+        if (archiveTasks.isEmpty()) {
+            throw new DarkKnightException("There is nothing in your archive!");
+        }
+        return ui.printArchiveList(archiveTasks.getAllTasks());
     }
 }
