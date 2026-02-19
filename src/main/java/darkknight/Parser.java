@@ -56,7 +56,7 @@ public class Parser {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new DarkKnightException("Missing description for the todo!");
         }
-        String description = parts[1];
+        String description = parts[1].trim();
         Todo todo = new Todo(description);
         tasks.addTask(todo);
         storage.save(tasks.getAllTasks());
@@ -73,6 +73,8 @@ public class Parser {
         }
 
         String[] otherParts = parts[1].split(" /by ");
+
+        // Checks if description or deadline time is missing
         if (otherParts.length != 2 || otherParts[0].trim().isEmpty()
                 || otherParts[1].trim().isEmpty()) {
             throw new DarkKnightException("Wrong format for deadline!");
@@ -95,14 +97,14 @@ public class Parser {
             throw new DarkKnightException("Missing description and time for the event!");
         }
 
-        String[] otherParts = parts[1].split("/from");
+        String[] otherParts = parts[1].split("/from", 2);
 
         if (otherParts.length != 2 || otherParts[0].trim().isEmpty()
                 || otherParts[1].trim().isEmpty()) {
             throw new DarkKnightException("Wrong format for event!");
         }
 
-        String description = otherParts[0];
+        String description = otherParts[0].trim();
         String[] rest = otherParts[1].split(" /to ");
         if (rest.length != 2 || rest[0].trim().isEmpty()
                 || rest[1].trim().isEmpty()) {
@@ -179,22 +181,23 @@ public class Parser {
     public String handleFind(String[] parts, TaskList tasks, Ui ui, Storage storage)
             throws DarkKnightException {
         TaskList relevantTasks = new TaskList();
-        try {
-            String keyWord = parts[1].trim();
-            for (int i = 0; i < tasks.size(); i++) {
-                Task task = tasks.getTask(i);
-                if (task.getName().contains(keyWord)) {
-                    relevantTasks.addTask(task);
-                }
-            }
-
-            if (relevantTasks.isEmpty()) {
-               throw new DarkKnightException("There isn't a task matching your keyword!");
-            }
-
-            return ui.showMatchingList(relevantTasks);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DarkKnightException("Missing keyword for find command!");
+        if (parts.length < 2) {
+            throw new DarkKnightException("Key word is missing for find command!");
         }
+
+        String keyWord = parts[1].trim();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.getTask(i);
+            if (task.getName().contains(keyWord)) {
+                relevantTasks.addTask(task);
+            }
+        }
+
+        if (relevantTasks.isEmpty()) {
+            throw new DarkKnightException("There isn't a task matching your keyword!");
+        }
+
+        return ui.showMatchingList(relevantTasks);
+
     }
 }
