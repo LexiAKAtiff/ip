@@ -100,4 +100,31 @@ public class Ui {
         }
         return str;
     }
+
+    /**
+     * Shows message when a task is archived
+     */
+    public String showTaskArchived(Task task) {
+        return "OK, I have archived this task for you: \n"
+                + task.toString();
+    }
+
+    /**
+     * Shows message when a task is unarchived
+     */
+    public String showTaskUnarchived(Task task) {
+        return "OK, I have moved this task out of archive for you: \n"
+                + task.toString();
+    }
+    /**
+     * Prints an archive list
+     */
+    public String printArchiveList(ArrayList<Task> tasks) {
+        String str = "Here are the tasks in your archive: \n";
+        for (int i = 0; i < tasks.size(); i++) {
+            int index = i + 1;
+            str = str + (index) + "." + tasks.get(i).toString() + "\n";
+        }
+        return str;
+    }
 }
