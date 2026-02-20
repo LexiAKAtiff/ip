@@ -34,6 +34,8 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setDuke(DarkKnight dk) {
         this.dk = dk;
+        // AI-assisted: show greeting bubble on startup before any user input.
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(dk.getGreeting(), dkImage));
     }
 
     /**

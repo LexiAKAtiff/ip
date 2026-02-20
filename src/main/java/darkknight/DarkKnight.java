@@ -49,6 +49,14 @@ public class DarkKnight {
 //    }
 
     /**
+     * Returns the greeting message shown on startup.
+     * AI-assisted: added by Claude to support greeting on app launch.
+     */
+    public String getGreeting() {
+        return ui.showWelcome();
+    }
+
+    /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
