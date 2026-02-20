@@ -38,6 +38,8 @@ public class Parser {
             return handleArchiveList(parts, tasks, ui, storage, archive);
         case "bye":
             return ui.showGoodbye();
+        case "help": // AI-assisted: added help command
+            return ui.showHelp();
         default:
             throw new DarkKnightException("I can't perform this task, it's beyond my capability!");
         }

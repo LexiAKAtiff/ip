@@ -12,6 +12,29 @@ public class Ui {
     }
 
     /**
+     * Shows all available commands.
+     * AI-assisted: added to support the 'help' command.
+     */
+    public String showHelp() {
+        return """
+                Here are the commands you can use:
+                  list                              - show all tasks
+                  todo <desc>                       - add a todo task
+                  deadline <desc> /by <date>        - add a deadline task
+                  event <desc> /from <date> /to <date> - add an event task
+                  mark <index>                      - mark a task as done
+                  unmark <index>                    - mark a task as not done
+                  delete <index>                    - delete a task
+                  find <keyword>                    - search tasks by keyword
+                  archive <index>                   - move a task to archive
+                  unarchive <index>                 - move a task out of archive
+                  archivelist                       - show all archived tasks
+                  bye                               - exit the app
+                  help                              - show this help message
+                """;
+    }
+
+    /**
      * Shows welcome message
      */
     public String showWelcome() {
@@ -19,6 +42,7 @@ public class Ui {
                 Hello! I'm Dark Knight
                 I'm here to guard you through the dark nights.
                 What can I do for you?
+                Type 'help' for commands supported!
                 """;
     }
 
