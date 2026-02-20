@@ -33,7 +33,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Used to construct deadline when read from file
+     * Constructs deadline when read from file
      */
     public Deadline(String description, LocalDate by) {
         super(description);

@@ -25,29 +25,6 @@ public class DarkKnight {
         }
     }
 
-//    /**
-//     * Controls the whole workflow
-//     */
-//    public void run() {
-//        ui.showWelcome();
-//
-//        String content = ui.readCommand();
-//        while (!content.equals("bye")) {
-//            try {
-//                parser.parseCommand(content, tasks, ui, storage);
-//            } catch (DarkKnightException e) {
-//                ui.showError(e.getMessage());
-//            }
-//            content = ui.readCommand();
-//        }
-//
-//        ui.showGoodbye();
-//    }
-
-//    public static void main(String[] args) {
-//        new DarkKnight("data/dark_knight.txt").run();
-//    }
-
     /**
      * Returns the greeting message shown on startup.
      * AI-assisted: added by Claude to support greeting on app launch.
