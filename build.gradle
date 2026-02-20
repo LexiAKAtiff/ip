@@ -9,6 +9,7 @@ repositories {
     mavenCentral()
 }
 
+// AI-assisted: added Java toolchain to enforce Java 17 regardless of system default
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
