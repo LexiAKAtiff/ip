@@ -1,26 +1,80 @@
-# darkknight.DarkKnight project template
+# Dark Knight
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Dark Knight is a personal task manager chatbot with a JavaFX GUI. It helps you keep track of todos, deadlines, and events — and lets you archive tasks you no longer need in your active list.
 
-## Setting up in Intellij
+## Requirements
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- JDK 17
+- Gradle (or use the included `gradlew` wrapper)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/darkknight.DarkKnight.java` file, right-click it, and choose `Run darkknight.DarkKnight.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Running the App
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+### Recommended: JAR file
+
+Download `darkknight.jar` from the [releases](../../releases) page and run:
+
+```bash
+java -jar darkknight.jar
+```
+
+> Requires JDK 17 to be installed.
+
+### From source (Gradle)
+
+```bash
+# Windows
+gradlew run
+
+# macOS / Linux
+./gradlew run
+```
+
+### Build the JAR yourself
+
+```bash
+# Windows
+gradlew shadowJar
+
+# macOS / Linux
+./gradlew shadowJar
+```
+
+The JAR will be produced at `build/libs/darkknight.jar`.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `list` | Show all tasks |
+| `todo <desc>` | Add a todo task |
+| `deadline <desc> /by <date>` | Add a deadline task |
+| `event <desc> /from <date> /to <date>` | Add an event task |
+| `mark <index>` | Mark a task as done |
+| `unmark <index>` | Mark a task as not done |
+| `delete <index>` | Delete a task |
+| `find <keyword>` | Search tasks by keyword |
+| `archive <index>` | Move a task to the archive |
+| `unarchive <index>` | Move a task out of the archive |
+| `archivelist` | Show all archived tasks |
+| `help` | Show all available commands |
+| `bye` | Exit the app |
+
+## Date Format
+
+Dates for `deadline` and `event` commands should be in `yyyy-MM-dd` format, e.g. `2026-03-15`.
+
+## Setting up in VS Code
+
+1. Install the **Extension Pack for Java** and **Gradle for Java** extensions.
+2. Open the project folder in VS Code.
+3. Run via the Gradle panel (elephant icon) → `application` → `run`, or use the terminal: `gradlew run`.
+
+## Setting up in IntelliJ
+
+1. Open IntelliJ and select `File` > `Open`, then choose the project directory.
+2. Configure the project to use **JDK 17**.
+3. Run via the Gradle tool window or use the terminal: `./gradlew run`.
+
+## Data Storage
+
+Tasks are saved automatically to `data/dark_knight.txt` and archived tasks to `data/archive.txt`.
