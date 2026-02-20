@@ -214,12 +214,6 @@ Here are the commands you can use:
 
 Closes the application.
 
-Example: `bye`
-
-```
-Bye. Hope to see you again soon!
-```
-
 ---
 
 ## Data Storage
