@@ -8,7 +8,7 @@ Dark Knight is a personal task manager chatbot with a JavaFX GUI. It helps you k
 - Gradle (or use the included `gradlew` wrapper)
 
 ## Running the App
-
+![img.png](img.png)
 ### Recommended: JAR file
 
 Download `darkknight.jar` from the [releases](../../releases) page and run:
