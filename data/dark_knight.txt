@@ -1,5 +1,6 @@
 [T][X] something
 [D][ ] read (by: Feb 14 2026)
-[T][ ] ski like Yiming Su
 [T][ ] figure skate
-[T][ ] get vn dollars
+[T][X] get vn dollars
+[T][ ] ski like Yiming Su
+[E][ ] pracitce for olympics (from: Apr 10 2026 to: Apr 17 2026)

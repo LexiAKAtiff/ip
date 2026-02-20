@@ -224,6 +224,8 @@ public class Parser {
 
             //Deletes the task from the current tasklist
             tasks.deleteTask(index);
+            // AI-assisted fix: persist removal from main task list to storage
+            storage.save(tasks.getAllTasks());
 
             return ui.showTaskArchived(task);
         } catch (NumberFormatException e) {
@@ -244,6 +246,9 @@ public class Parser {
 
             Task task = archive.getTask(index);
             archive.unarchive(index);
+            // AI-assisted fix: add task back to main list and persist it
+            tasks.addTask(task);
+            storage.save(tasks.getAllTasks());
 
             return ui.showTaskUnarchived(task);
         } catch (NumberFormatException e) {

@@ -106,13 +106,21 @@ public class Storage {
      * Parses a deadline task
      */
     public Task parseDeadline(String rest) throws DarkKnightException {
-        int byIndex = rest.indexOf("(by: ");
-        String description = rest.substring(0, byIndex).trim();
-        String dateStr = rest.substring(byIndex + 5, rest.length() - 1);
+        // AI-assisted fix: catch StringIndexOutOfBoundsException from malformed lines
+        try {
+            int byIndex = rest.indexOf("(by: ");
+            if (byIndex == -1) {
+                throw new DarkKnightException("Corrupted deadline format: " + rest);
+            }
+            String description = rest.substring(0, byIndex).trim();
+            String dateStr = rest.substring(byIndex + 5, rest.length() - 1);
 
-        LocalDate by = parseDate(dateStr);
+            LocalDate by = parseDate(dateStr);
 
-        return new Deadline(description, by);
+            return new Deadline(description, by);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DarkKnightException("Corrupted deadline entry: " + rest);
+        }
     }
 
     /**
@@ -120,18 +128,25 @@ public class Storage {
      */
     public Task parseEvent(String rest) throws DarkKnightException {
         // Format: [E][ ] meeting (from: Feb 01 2026 to: Feb 05 2026)
-        int fromIndex = rest.indexOf("(from: ");
-        String eventDesc = rest.substring(0, fromIndex).trim();
+        // AI-assisted fix: catch StringIndexOutOfBoundsException from malformed lines
+        try {
+            int fromIndex = rest.indexOf("(from: ");
+            int toIndex = rest.indexOf(" to: ");
+            if (fromIndex == -1 || toIndex == -1) {
+                throw new DarkKnightException("Corrupted event format: " + rest);
+            }
+            String eventDesc = rest.substring(0, fromIndex).trim();
 
-        int toIndex = rest.indexOf(" to: ");
+            String fromStr = rest.substring(fromIndex + 7, toIndex);
+            String toStr = rest.substring(toIndex + 5, rest.length() - 1);
 
-        String fromStr = rest.substring(fromIndex + 7, toIndex);
-        String toStr = rest.substring(toIndex + 5, rest.length() - 1);
+            LocalDate from = parseDate(fromStr);
+            LocalDate to = parseDate(toStr);
 
-        LocalDate from = parseDate(fromStr);
-        LocalDate to = parseDate(toStr);
-
-        return new Event(eventDesc, from, to);
+            return new Event(eventDesc, from, to);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DarkKnightException("Corrupted event entry: " + rest);
+        }
     }
 
     /**
@@ -145,6 +160,10 @@ public class Storage {
             throw new DarkKnightException("Empty line");
         }
 
+        // AI-assisted fix: guard against lines too short to parse
+        if (line.length() < 7) {
+            throw new DarkKnightException("Corrupted task line: " + line);
+        }
         String type = line.substring(1, 2);
         String status = line.substring(4, 5);
         boolean isDone = status.equals("X");
